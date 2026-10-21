@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#061b15">
+<style>html,body{margin:0}</style>
+<title>Brasil Vai Vencer 22</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;800;900&display=swap">
+<style>
+/* Layout: faixa verde com cabeçalho, hero em duas colunas, editor (controles + prévia) lado a lado, empilhado no celular.
+   Visual único e escuro por escolha: verde-bandeira, amarelo e azul. */
+:root {
+  color-scheme: dark;
+  --bg:#061b15; --card:#102b21; --line:#315840; --muted:#afc8b8; --text:#fffef6;
+  --yellow:#ffdf49; --green:#159447; --blue:#1c5fbe; --ink:#103622;
+  --display:'Archivo', system-ui, -apple-system, 'Segoe UI', Arial, sans-serif;
+}
+* { box-sizing:border-box }
+html { scroll-behavior:smooth }
+body {
+  margin:0; background:radial-gradient(ellipse at 95% 6%,#144d32 0,transparent 31%),radial-gradient(ellipse at 0% 30%,#0c4539 0,transparent 45%),var(--bg);
+  background-color:var(--bg); color:var(--text);
+  font-family:var(--display); font-weight:500; line-height:1.5;
+}
+button,input { font:inherit }
+button { cursor:pointer }
+button:focus-visible,input:focus-visible,.upload:focus-within,a:focus-visible { outline:3px solid var(--yellow); outline-offset:3px }
+.wrapper { width:100%; max-width:1200px; margin:0 auto; padding-left:max(16px,env(safe-area-inset-left,0px)); padding-right:max(16px,env(safe-area-inset-right,0px)) }
+.top { background:#061b15; border-bottom:1px solid #5fb17b2a }
+.nav { min-height:82px; display:flex; align-items:center; justify-content:space-between; gap:16px }
+.brand { display:flex; align-items:center; gap:13px; font-weight:900; line-height:1.08; letter-spacing:.3px; font-size:16px }
+.brand-icon { border-radius:13px; padding:10px 11px; background:linear-gradient(135deg,#135e36,#08482b); box-shadow:0 0 0 1px #659b6a66,inset 0 0 0 1px #ffec6050 }
+.flag { display:block; position:relative; background:#159447; width:44px; height:30px; border-radius:3px; overflow:hidden; box-shadow:0 2px 9px #0005 }
+.flag:before { content:""; position:absolute; width:25px; height:25px; top:50%; left:50%; transform:translate(-50%,-50%) rotate(45deg); background:#ffdf43 }
+.flag:after { content:""; position:absolute; width:16px; height:16px; border-radius:50%; top:50%; left:50%; transform:translate(-50%,-50%); background:linear-gradient(155deg,#fff 0 12%,#184eb0 13% 100%) }
+.nav-pill { color:#eaffee; border:1px solid #497558; padding:8px 14px; background:#163a29; border-radius:40px; font-size:12px; font-weight:800; letter-spacing:1px }
+.hero { display:grid; grid-template-columns:1fr .9fr; align-items:center; gap:40px; padding-block:57px 52px }
+.hero > * { min-width:0 }
+.eyebrow { margin:0 0 14px; font-size:12px; color:#a2ecc0; letter-spacing:3px; text-transform:uppercase; font-weight:800 }
+h1 { font-size:clamp(44px,5.7vw,81px); line-height:1.02; letter-spacing:-2px; margin:0 0 23px; font-weight:900; text-wrap:balance }
+h1 strong { display:block; color:var(--yellow) }
+.hero-copy { max-width:540px; font-size:17px; line-height:1.7; color:var(--muted); margin:0 0 27px }
+.hero-link { display:inline-flex; gap:12px; align-items:center; border-radius:13px; background:var(--yellow); color:var(--ink); text-decoration:none; padding:14px 21px; font-weight:900; box-shadow:0 8px 30px #ffdf4930 }
+.hero-link:hover { background:#fff071 }
+.hero-display { position:relative; background:radial-gradient(ellipse at 77% 40%,#1d8651 0,#0d432b 42%,#083122 100%); border:1px solid #70a36a5b; border-radius:27px; padding:25px; overflow:hidden; box-shadow:0 15px 50px #0004 }
+.hero-display:before { content:""; position:absolute; width:360px; height:360px; border:60px solid #eacf2824; border-radius:50%; right:-150px; top:-155px }
+.mockup { position:relative; display:grid; grid-template-columns:120px 1fr; gap:23px; align-items:center; background:linear-gradient(145deg,#0f5637,#07301f); border:2px solid #ffe0507c; border-radius:23px; min-height:238px; padding:23px; box-shadow:0 16px 35px #0005 }
+.mock-avatar { width:112px; height:112px; border:7px solid var(--yellow); border-radius:50%; background:radial-gradient(circle at 50% 34%,#8bb6a1 0 21%,transparent 22%),radial-gradient(ellipse at 50% 100%,#8bb6a1 0 45%,transparent 46%),#124b38; box-shadow:0 0 0 8px #194b83 }
+.mock-title { font-weight:900; letter-spacing:-1px; font-size:clamp(21px,2.5vw,35px); line-height:1.05 }
+.mock-title strong { color:var(--yellow); font-size:57px; display:block; margin-top:7px }
+.mock-flag { position:absolute; right:19px; top:19px; transform:scale(.8); transform-origin:top right }
+.hero-caption { position:relative; color:#d4f5db; margin:15px 4px 0; font-size:12px; text-align:center; letter-spacing:1.5px; font-weight:800 }
+.editor-title { text-align:center; margin:0 0 29px }
+.editor-title h2 { font-size:clamp(28px,4vw,44px); letter-spacing:-1.2px; margin:0 0 7px; font-weight:900; text-wrap:balance }
+.editor-title p { margin:0; color:var(--muted) }
+.editor { display:grid; grid-template-columns:minmax(0,.78fr) minmax(0,1fr); align-items:start; gap:24px; padding-bottom:72px }
+.card { background:linear-gradient(148deg,#153b2a,#0b241c 80%); border:1px solid #63916b57; border-radius:23px; padding:26px; box-shadow:0 13px 43px #0004 }
+.steps-title { display:flex; align-items:center; gap:10px; font-size:17px; font-weight:900; margin:0 0 18px }
+.step { display:grid; place-items:center; background:var(--yellow); color:#103a25; width:29px; height:29px; border-radius:10px; font-size:14px; font-weight:900 }
+.upload { display:flex; align-items:center; justify-content:center; flex-direction:column; min-height:154px; gap:6px; position:relative; border:2px dashed #75ab7c; border-radius:15px; background:#1a5134; text-align:center; padding:16px; cursor:pointer; transition:.2s; overflow:hidden }
+.upload:hover,.upload.over { border-color:var(--yellow); background:#1d5b3b }
+.upload .ico { font-size:29px; line-height:1.3; color:var(--yellow) }
+.upload b { font-size:15px; max-width:100%; overflow-wrap:anywhere }
+.upload small { color:#c5d9c9; font-size:12px }
+.upload input { position:absolute; width:1px; height:1px; opacity:0; overflow:hidden }
+.hr { height:1px; background:#9acf9930; margin:24px 0 }
+.lab { display:block; font-size:12px; text-transform:uppercase; letter-spacing:.8px; color:#dcefe1; font-weight:800; margin:13px 0 10px }
+.opts { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:9px }
+.option { color:#e5f8e9; background:#0c261b; border:1px solid #517660; border-radius:12px; font-size:13px; font-weight:800; padding:13px 5px; min-height:47px }
+.option small { display:block; color:inherit; opacity:.7; font-weight:500 }
+.option[aria-pressed="true"] { color:#123521; background:var(--yellow); border-color:var(--yellow) }
+.option:hover { filter:brightness(1.13) }
+.mode-options { display:grid; grid-template-columns:1fr 1fr; gap:9px }
+.mode-options .option { font-size:12px }
+.line { display:flex; justify-content:space-between; align-items:baseline; gap:12px }
+.line output { color:#cbe6d1; font-size:12px; font-variant-numeric:tabular-nums }
+.range { width:100%; accent-color:var(--yellow); margin:3px 0 8px; height:24px; cursor:pointer }
+.range:disabled { opacity:.4; cursor:not-allowed }
+.note { font-size:12px; color:#a9c6b4; margin:7px 0 0 }
+.preview-card { padding:23px; min-width:0 }
+.preview-head { display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:15px; flex-wrap:wrap }
+.preview-head h3 { font-size:18px; margin:0; font-weight:900 }
+.resolution { font-size:12px; color:#c6dfcb; background:#1e4430; padding:7px 11px; border:1px solid #5a8b63; border-radius:8px; font-variant-numeric:tabular-nums }
+.preview-area { min-height:320px; display:grid; place-items:center; padding:18px; background-color:#061b16; background-image:linear-gradient(45deg,#0b2a1e 25%,transparent 25%),linear-gradient(-45deg,#0b2a1e 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#0b2a1e 75%),linear-gradient(-45deg,transparent 75%,#0b2a1e 75%); background-size:24px 24px; background-position:0 0,0 12px,12px -12px,-12px 0; border-radius:16px; border:1px solid #4470535e }
+canvas { display:block; width:auto; height:auto; max-width:100%; max-height:640px; border-radius:12px; box-shadow:0 15px 39px #0007; touch-action:none; cursor:grab }
+canvas.dragging { cursor:grabbing }
+.downloads { display:flex; gap:11px; margin-top:16px; flex-wrap:wrap }
+.button { min-height:55px; display:grid; place-items:center; border-radius:12px; border:1px solid #5a8863; font-weight:900; font-size:14px; padding:12px 17px }
+.button.main { flex:1 1 200px; background:var(--yellow); color:var(--ink); border-color:transparent; box-shadow:0 5px 20px #ffdf4924 }
+.button.main:hover { background:#ffea7a }
+.button.alt { flex:1 1 140px; background:#1d472e; color:#f2fff6 }
+.button.alt:hover { background:#28633d }
+#status { min-height:20px; color:#c9f1cf; font-size:13px; margin:12px 0 0 }
+.result { margin-top:14px; padding:14px; border:1px solid #5a8b63; border-radius:16px; background:#0b241c; text-align:center }
+.result p { margin:0 0 12px; font-size:13px; color:#d4f5db }
+.result img { display:block; margin:0 auto; max-width:100%; max-height:520px; width:auto; height:auto; border-radius:10px }
+.privacy { color:#9cbaa9; font-size:12px; margin:10px 0 0; line-height:1.7 }
+.foot { display:flex; gap:20px; justify-content:space-between; flex-wrap:wrap; border-top:1px solid #47694e; padding-block:28px 38px; font-size:12px; color:#a7c2b0 }
+.foot strong { color:#fff }
+@media (max-width:900px) {
+  .hero { grid-template-columns:1fr; gap:21px; padding-block:43px }
+  .editor { grid-template-columns:1fr }
+  .wrapper { max-width:680px }
+  .preview-area { min-height:260px }
+}
+@media (max-width:480px) {
+  .nav { min-height:65px }
+  .brand { gap:10px; font-size:13px }
+  .brand-icon { padding:6px 7px }
+  .nav-pill { display:none }
+  .hero { padding-block:27px 36px }
+  h1 { font-size:42px; letter-spacing:-1.5px }
+  .hero-copy { font-size:15px }
+  .hero-display { padding:15px; border-radius:19px }
+  .mockup { grid-template-columns:75px 1fr; gap:15px; min-height:162px; padding:17px }
+  .mock-avatar { width:73px; height:73px; border-width:5px; box-shadow:0 0 0 4px #194b83 }
+  .mock-title { font-size:19px }
+  .mock-title strong { font-size:44px }
+  .mock-flag { right:10px; top:10px; transform:scale(.58) }
+  .card { padding:18px; border-radius:18px }
+  .preview-card { padding:14px }
+  .preview-head h3 { font-size:16px }
+  .preview-area { padding:11px }
+  .button { font-size:13px; padding:10px 11px }
+  .editor-title { margin-bottom:20px }
+  .editor { gap:17px; padding-bottom:45px }
+}
+@media (prefers-reduced-motion:reduce) { * { scroll-behavior:auto !important; transition:none !important } }
+</style>
+</head>
+<body>
+
+<header class="top"><div class="wrapper nav"><div class="brand"><span class="brand-icon"><span class="flag" aria-hidden="true"></span></span><span>BRASIL VAI<br>VENCER <span style="color:var(--yellow)">22</span></span></div><span class="nav-pill">MOLDURAS PATRIÓTICAS • GRÁTIS</span></div></header>
+<main>
+<section class="wrapper hero"><div><p class="eyebrow">Sua foto. Nossa bandeira.</p><h1>O BRASIL <strong>VAI VENCER.</strong></h1><p class="hero-copy">Coloque sua foto com a bandeira do Brasil e o número <b style="color:#ffdf49">22</b>. Escolha o formato, ajuste o enquadramento e salve a arte para postar nas redes sociais.</p><a class="hero-link" href="#criar">Criar minha moldura <span aria-hidden="true">→</span></a></div>
+<div class="hero-display" aria-hidden="true"><div class="mockup"><span class="mock-avatar"></span><div class="mock-title">O BRASIL<br>VAI VENCER<strong>22.</strong></div><span class="mock-flag flag"></span></div><div class="hero-caption">VERDE • AMARELO • AZUL • BRASIL</div></div></section>
+<section class="wrapper" id="criar"><div class="editor-title"><h2>Crie sua moldura</h2><p>Uma arte pronta para usar, com a sua própria foto.</p></div>
+<div class="editor"><div class="card">
+<h3 class="steps-title"><span class="step">1</span> Escolha sua foto</h3>
+<label class="upload" id="dropzone"><span class="ico">＋</span><b id="uploadText">Toque aqui para enviar sua foto</b><small>JPG, PNG ou WebP • até 25 MB</small><input id="photo" type="file" accept="image/jpeg,image/png,image/webp" aria-label="Escolher foto"></label>
+<div class="hr"></div><h3 class="steps-title"><span class="step">2</span> Escolha o formato</h3>
+<div class="opts" role="group" aria-label="Formato"><button class="option" type="button" data-format="perfil" aria-pressed="true">Perfil<small>Quadrado</small></button><button class="option" type="button" data-format="post" aria-pressed="false">Post<small>Feed 4:5</small></button><button class="option" type="button" data-format="story" aria-pressed="false">Story<small>Vertical</small></button></div>
+<div class="lab">Estilo da moldura</div><div class="opts" role="group" aria-label="Estilo"><button class="option" type="button" data-style="destaque" aria-pressed="true">Destaque</button><button class="option" type="button" data-style="bandeira" aria-pressed="false">Bandeira</button><button class="option" type="button" data-style="circular" aria-pressed="false">Circular</button></div>
+<div class="hr"></div><h3 class="steps-title"><span class="step">3</span> Ajuste o enquadramento</h3>
+<div class="lab">Como exibir sua foto</div><div class="mode-options" role="group" aria-label="Enquadramento"><button class="option" type="button" data-mode="contain" aria-pressed="true">Foto completa</button><button class="option" type="button" data-mode="cover" aria-pressed="false">Preencher espaço</button></div>
+<div class="line"><label class="lab" for="zoom">Tamanho da foto</label><output id="zoomValue">100%</output></div><input class="range" id="zoom" type="range" min="65" max="200" value="100" disabled>
+<div class="line"><label class="lab" for="posX">Mover para os lados</label><output id="posXValue">Centro</output></div><input class="range" id="posX" type="range" min="-100" max="100" value="0" disabled>
+<div class="line"><label class="lab" for="posY">Mover para cima / baixo</label><output id="posYValue">Centro</output></div><input class="range" id="posY" type="range" min="-100" max="100" value="0" disabled>
+<p class="note">Dica: você também pode arrastar a foto direto na prévia. O modo “Foto completa” evita cortes.</p>
+</div>
+<div class="card preview-card"><div class="preview-head"><h3>Prévia da sua arte</h3><span class="resolution" id="resolution">1080 × 1080</span></div><div class="preview-area"><canvas id="art" width="1080" height="1080" role="img" aria-label="Prévia da moldura com a bandeira do Brasil e o texto O Brasil vai vencer 22"></canvas></div><div class="downloads"><button class="button main" id="download" type="button">↓ Baixar imagem PNG</button><button class="button alt" id="show" type="button">Ver imagem pronta</button></div><div id="status" role="status" aria-live="polite"></div><div class="result" id="result" hidden><p>Pressione e segure a imagem para salvar na galeria do celular.</p><img id="resultImg" alt="Sua arte pronta"></div><p class="privacy">Sua foto fica neste navegador e não é enviada a nenhum servidor. Use apenas fotos que você tem autorização para utilizar.</p></div>
+</div></section></main>
+<footer><div class="wrapper foot"><span><strong>BRASIL VAI VENCER 22</strong> • Gerador independente de molduras</span><span>Projeto independente, sem vínculo oficial com partidos ou campanhas</span></div></footer>
+<script>
+(()=>{
+'use strict';
+const canvas=document.getElementById('art'),ctx=canvas.getContext('2d',{alpha:false});
+const input=document.getElementById('photo'),status=document.getElementById('status'),ids=['zoom','posX','posY'];
+const state={photo:null,format:'perfil',style:'destaque',mode:'contain',zoom:1,x:0,y:0};
+const dims={perfil:[1080,1080],post:[1080,1350],story:[1080,1920]};
+const FONT='Archivo, system-ui, -apple-system, Segoe UI, Arial, sans-serif';
+let sourceUrl=null,frame=null,renderScheduled=false,drag=null,downloads=null,resultUrl=null;
+
+// Retângulo arredondado sem depender de ctx.roundRect (Safari antigo).
+function rr(x,y,w,h,r){r=Math.min(r,w/2,h/2);ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath()}
+function grad(x1,y1,x2,y2,colors){const g=ctx.createLinearGradient(x1,y1,x2,y2);colors.forEach(([p,c])=>g.addColorStop(p,c));return g}
+function text(str,x,y,maxW,size,color='#fff',align='left',weight=900){ctx.save();ctx.textAlign=align;ctx.textBaseline='alphabetic';ctx.fillStyle=color;let s=size;do{ctx.font=`${weight} ${s}px ${FONT}`;if(ctx.measureText(str).width<=maxW||s<=22)break;s-=2}while(true);ctx.fillText(str,x,y);ctx.restore()}
+function line(x,y,w,h,color){ctx.fillStyle=color;ctx.fillRect(x,y,w,h)}
+function drawFlag(x,y,w,h){
+  ctx.save();ctx.translate(x,y);
+  ctx.fillStyle='#159447';rr(0,0,w,h,Math.max(5,w*.035));ctx.fill();
+  ctx.fillStyle='#ffde43';ctx.beginPath();ctx.moveTo(w*.5,h*.12);ctx.lineTo(w*.91,h*.5);ctx.lineTo(w*.5,h*.88);ctx.lineTo(w*.09,h*.5);ctx.closePath();ctx.fill();
+  ctx.fillStyle='#174ca9';ctx.beginPath();ctx.arc(w*.5,h*.5,h*.278,0,Math.PI*2);ctx.fill();
+  ctx.strokeStyle='#f7faf2';ctx.lineWidth=Math.max(2,w*.027);ctx.beginPath();ctx.moveTo(w*.365,h*.475);ctx.quadraticCurveTo(w*.5,h*.405,w*.656,h*.485);ctx.stroke();
+  ctx.fillStyle='#fff';for(const [sx,sy,r] of [[.52,.61,.009],[.57,.57,.009],[.45,.59,.007],[.48,.65,.006],[.56,.65,.006]]){ctx.beginPath();ctx.arc(sx*w,sy*h,Math.max(1.5,w*r),0,Math.PI*2);ctx.fill()}
+  ctx.restore();
+}
+function background(w,h){
+ ctx.fillStyle=grad(0,0,w,h,[[0,'#0e633d'],[.47,'#085337'],[1,'#04251f']]);ctx.fillRect(0,0,w,h);
+ ctx.save();ctx.globalAlpha=.14;ctx.translate(w*.78,h*.28);ctx.rotate(-.18);drawFlag(-430,-285,860,570);ctx.restore();
+ ctx.save();ctx.strokeStyle='#f4ce3844';ctx.lineWidth=100;ctx.beginPath();ctx.arc(w*.92,h*.07,560,0,Math.PI*2);ctx.stroke();ctx.strokeStyle='#1864bc66';ctx.lineWidth=29;ctx.beginPath();ctx.arc(w*.92,h*.07,420,0,Math.PI*2);ctx.stroke();ctx.restore();
+ ctx.save();ctx.globalAlpha=.18;for(let i=0;i<12;i++){ctx.strokeStyle=i%2?'#f8da57':'#bff7d2';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(w*.5,h*.48);ctx.lineTo((i-2)*145,-70);ctx.stroke()}ctx.restore();
+ line(0,0,w,13,'#ffdf49');
+}
+// Área da foto. No estilo circular o círculo ocupa o máximo de espaço livre em cada formato.
+function geometry(w,h){
+  const circ=state.style==='circular',fmt=state.format;
+  if(circ){
+    const d=fmt==='story'?940:fmt==='post'?800:560,cy=fmt==='story'?800:fmt==='post'?560:450;
+    return {x:(w-d)/2,y:cy-d/2,w:d,h:d};
+  }
+  if(fmt==='story')return {x:(w-790)/2,y:282,w:790,h:1115};
+  if(fmt==='post')return {x:(w-796)/2,y:178,w:796,h:790};
+  return {x:(w-748)/2,y:160,w:748,h:570};
+}
+function photoPlaceholder(f){
+ ctx.save();ctx.fillStyle=grad(f.x,f.y,f.x+f.w,f.y+f.h,[[0,'#196847'],[1,'#092f35']]);ctx.fillRect(f.x,f.y,f.w,f.h);
+ ctx.translate(f.x+f.w/2,f.y+f.h*.49);
+ const r=Math.min(f.w,f.h);ctx.fillStyle='#35745e';ctx.beginPath();ctx.arc(0,-r*.13,r*.16,0,Math.PI*2);ctx.fill();ctx.beginPath();ctx.ellipse(0,r*.26,r*.32,r*.26,0,0,Math.PI*2);ctx.fill();
+ ctx.restore();
+}
+// Fundo desfocado feito por redução e ampliação: funciona em qualquer navegador (ctx.filter não funciona no Safari).
+const small=document.createElement('canvas');
+function blurredCover(img,x,y,w,h){
+ const sw=Math.max(8,Math.round(w/26)),sh=Math.max(8,Math.round(h/26));small.width=sw;small.height=sh;
+ const s=small.getContext('2d'),r=Math.max(sw/img.naturalWidth,sh/img.naturalHeight),dw=img.naturalWidth*r,dh=img.naturalHeight*r;
+ s.imageSmoothingEnabled=true;s.imageSmoothingQuality='high';s.drawImage(img,(sw-dw)/2,(sh-dh)/2,dw,dh);
+ ctx.imageSmoothingEnabled=true;ctx.imageSmoothingQuality='high';ctx.drawImage(small,x,y,w,h);
+ ctx.fillStyle='rgba(2,28,20,.5)';ctx.fillRect(x,y,w,h);
+}
+function drawPhoto(f){
+ const circle=state.style==='circular';
+ const radius=f.w/2,cx=f.x+f.w/2,cy=f.y+f.h/2;
+ ctx.save();ctx.beginPath();
+ if(circle)ctx.arc(cx,cy,radius-5,0,Math.PI*2);else rr(f.x,f.y,f.w,f.h,34);
+ ctx.clip();
+ if(!state.photo){photoPlaceholder(f)}else{
+  const img=state.photo;
+  ctx.fillStyle='#12402d';ctx.fillRect(f.x,f.y,f.w,f.h);
+  blurredCover(img,f.x,f.y,f.w,f.h);
+  const pad=state.mode==='contain'?(circle?0:22):0;
+  const availableW=f.w-pad*2,availableH=f.h-pad*2;
+  const base=state.mode==='contain'?Math.min(availableW/img.naturalWidth,availableH/img.naturalHeight):Math.max(availableW/img.naturalWidth,availableH/img.naturalHeight);
+  const ratio=base*state.zoom,dw=img.naturalWidth*ratio,dh=img.naturalHeight*ratio;
+  const x=f.x+(f.w-dw)/2+state.x/100*(f.w*.38);
+  const y=f.y+(f.h-dh)/2+state.y/100*(f.h*.38);
+  ctx.imageSmoothingEnabled=true;ctx.imageSmoothingQuality='high';ctx.drawImage(img,x,y,dw,dh);
+ }
+ ctx.fillStyle=grad(0,f.y+f.h*.74,0,f.y+f.h,[[0,'rgba(1,31,22,0)'],[1,'rgba(1,25,20,.55)']]);ctx.fillRect(f.x,f.y+f.h*.74,f.w,f.h*.26);
+ ctx.restore();
+ ctx.save();ctx.shadowColor='#0009';ctx.shadowBlur=25;ctx.strokeStyle='#ffdf49';ctx.lineWidth=9;ctx.beginPath();
+ if(circle)ctx.arc(cx,cy,radius,0,Math.PI*2);else rr(f.x,f.y,f.w,f.h,36);
+ ctx.stroke();ctx.shadowBlur=0;ctx.strokeStyle='#2dd47a';ctx.lineWidth=5;ctx.beginPath();
+ if(circle)ctx.arc(cx,cy,radius-10,0,Math.PI*2);else rr(f.x+8,f.y+8,f.w-16,f.h-16,27);
+ ctx.stroke();ctx.restore();
+}
+function labelTop(){
+ drawFlag(62,48,130,88);
+ text('ORGULHO DE SER BRASILEIRO',218,99,780,37,'#fcffec','left',900);
+ line(220,115,254,6,'#ffdf49');
+}
+function waves(w,h,start){
+ ctx.save();ctx.globalAlpha=.90;
+ ctx.beginPath();ctx.moveTo(0,start+30);ctx.bezierCurveTo(w*.33,start-130,w*.7,start+150,w,start-30);ctx.lineTo(w,start+42);ctx.bezierCurveTo(w*.7,start+210,w*.33,start-45,0,start+115);ctx.closePath();ctx.fillStyle='#ffdf49';ctx.fill();
+ ctx.beginPath();ctx.moveTo(0,start+82);ctx.bezierCurveTo(w*.34,start-64,w*.7,start+205,w,start+26);ctx.lineTo(w,start+85);ctx.bezierCurveTo(w*.7,start+262,w*.33,start-8,0,start+155);ctx.closePath();ctx.fillStyle='#1764bd';ctx.fill();ctx.restore();
+}
+function bottomBlock(w,h){
+ const square=state.format==='perfil',story=state.format==='story';
+ const high=story?470:square?306:348,by=h-high;
+ waves(w,h,by-18);
+ ctx.save();ctx.fillStyle=grad(0,by+4,0,h,[[0,'rgba(0,45,30,.94)'],[.4,'#00462e'],[1,'#05281f']]);ctx.fillRect(0,by+48,w,h-by-48);ctx.restore();
+ line(0,h-16,w,16,'#ffdf49');line(0,h-26,w,10,'#159447');
+ const top=by+(story?155:105);
+ if(story)line(65,top-100,112,8,'#ffdf49');
+ text('O BRASIL',65,top+5,710,94,'#ffffff');
+ text('VAI VENCER',65,top+100,720,91,'#ffffff');
+ line(803,top-63,3,170,'#d7e8c477');
+ text('22',1018,top+82,214,168,'#ffdf49','right',900);
+ if(story){text('VERDE  •  AMARELO  •  AZUL',66,h-97,850,32,'#c9ead0','left',800)}
+}
+function render(){
+ renderScheduled=false;const [w,h]=dims[state.format];canvas.width=w;canvas.height=h;
+ const f=geometry(w,h);frame=f;background(w,h);
+ if(state.style==='bandeira'){
+  ctx.save();ctx.globalAlpha=.10;drawFlag(-80,220,460,300);drawFlag(720,h*.45,400,265);ctx.restore();
+ }
+ drawPhoto(f);
+ if(state.style==='bandeira'){ctx.save();ctx.globalAlpha=.3;ctx.translate(w*.75,h*.44);ctx.rotate(-.18);drawFlag(-340,-215,680,430);ctx.restore()}
+ labelTop();
+ bottomBlock(w,h);
+ document.getElementById('resolution').textContent=`${w} × ${h} PNG`;
+}
+function queueRender(){if(!renderScheduled){renderScheduled=true;requestAnimationFrame(render)}}
+function setStatus(message,error=false){status.textContent=message;status.style.color=error?'#ffc1b8':'#c9f1cf'}
+function updateSliders(){document.getElementById('zoom').value=Math.round(state.zoom*100);document.getElementById('posX').value=Math.round(state.x);document.getElementById('posY').value=Math.round(state.y);document.getElementById('zoomValue').textContent=Math.round(state.zoom*100)+'%';document.getElementById('posXValue').textContent=state.x?'Ajustado':'Centro';document.getElementById('posYValue').textContent=state.y?'Ajustado':'Centro'}
+function useFile(file){
+ if(!file)return;
+ if(!['image/png','image/jpeg','image/webp'].includes(file.type)){setStatus('Escolha uma imagem JPG, PNG ou WebP.',true);return}
+ if(file.size>25*1024*1024){setStatus('A foto deve ter até 25 MB.',true);return}
+ const url=URL.createObjectURL(file),img=new Image();
+ img.onload=()=>{if(sourceUrl)URL.revokeObjectURL(sourceUrl);sourceUrl=url;state.photo=img;state.zoom=1;state.x=0;state.y=0;ids.forEach(id=>document.getElementById(id).disabled=false);updateSliders();document.getElementById('uploadText').textContent=file.name.length>31?file.name.slice(0,28)+'...':file.name;setStatus('Foto adicionada! A moldura foi atualizada.');queueRender()};
+ img.onerror=()=>{URL.revokeObjectURL(url);setStatus('Não foi possível abrir a imagem.',true)};
+ img.src=url;
+}
+input.addEventListener('change',e=>useFile(e.target.files&&e.target.files[0]));
+const drop=document.getElementById('dropzone');
+drop.addEventListener('dragover',e=>{e.preventDefault();drop.classList.add('over')});
+drop.addEventListener('dragleave',()=>drop.classList.remove('over'));
+drop.addEventListener('drop',e=>{e.preventDefault();drop.classList.remove('over');useFile(e.dataTransfer.files&&e.dataTransfer.files[0])});
+function pressGroup(attr,key){document.querySelectorAll(`[data-${attr}]`).forEach(btn=>btn.addEventListener('click',()=>{state[key]=btn.dataset[attr];document.querySelectorAll(`[data-${attr}]`).forEach(el=>el.setAttribute('aria-pressed',String(btn===el)));queueRender()}))}
+pressGroup('format','format');pressGroup('style','style');pressGroup('mode','mode');
+document.getElementById('zoom').addEventListener('input',e=>{state.zoom=Number(e.target.value)/100;updateSliders();queueRender()});
+for(const [id,key] of [['posX','x'],['posY','y']])document.getElementById(id).addEventListener('input',e=>{state[key]=Number(e.target.value);updateSliders();queueRender()});
+canvas.addEventListener('pointerdown',e=>{if(!state.photo||!frame)return;drag={x:e.clientX,y:e.clientY,oldX:state.x,oldY:state.y};canvas.setPointerCapture(e.pointerId);canvas.classList.add('dragging')});
+canvas.addEventListener('pointermove',e=>{if(!drag||!frame)return;const br=canvas.getBoundingClientRect(),scale=canvas.width/br.width;state.x=Math.max(-100,Math.min(100,drag.oldX+(e.clientX-drag.x)*scale/(frame.w*.38)*100));state.y=Math.max(-100,Math.min(100,drag.oldY+(e.clientY-drag.y)*scale/(frame.h*.38)*100));updateSliders();queueRender()});
+function endDrag(){drag=null;canvas.classList.remove('dragging')}
+canvas.addEventListener('pointerup',endDrag);canvas.addEventListener('pointercancel',endDrag);
+
+function canvasBlob(){return new Promise((resolve,reject)=>canvas.toBlob(b=>b?resolve(b):reject(Error('png')),'image/png'))}
+const fileName=()=>`brasil-vai-vencer-22-${state.format}.png`;
+function showResult(blob){
+ if(resultUrl)URL.revokeObjectURL(resultUrl);
+ resultUrl=URL.createObjectURL(blob);
+ document.getElementById('resultImg').src=resultUrl;
+ const box=document.getElementById('result');box.hidden=false;
+ box.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+function plainDownload(blob){const a=document.createElement('a'),u=URL.createObjectURL(blob);a.href=u;a.download=fileName();document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),18000)}
+document.getElementById('download').addEventListener('click',async()=>{
+ let blob;
+ try{blob=await canvasBlob()}catch(e){setStatus('Não foi possível gerar o PNG.',true);return}
+ if(downloads){
+  try{await downloads.save({filename:fileName(),data:blob});setStatus('Imagem salva. Confira a pasta de downloads.');return}
+  catch(err){
+   if(err&&err.code==='declined'){setStatus('Download cancelado.');return}
+   showResult(blob);setStatus('Não foi possível baixar direto. Segure a imagem abaixo para salvar.',true);return;
+  }
+ }
+ plainDownload(blob);setStatus('PNG criado. Confira a pasta de downloads.');
+});
+document.getElementById('show').addEventListener('click',async()=>{
+ try{showResult(await canvasBlob());setStatus('Imagem pronta. Pressione e segure para salvar.')}catch(e){setStatus('Não foi possível gerar o PNG.',true)}
+});
+
+render();
+// Quando a fonte carregar, redesenha para o texto da arte usar a mesma fonte em todos os aparelhos.
+if(document.fonts&&document.fonts.load){Promise.all([document.fonts.load('900 90px Archivo'),document.fonts.load('800 30px Archivo')]).then(queueRender).catch(()=>{})}
+// Permissão de download do site publicado (ausente fora do viewer).
+try{if(window.claude&&window.claude.use){window.claude.use('downloads').then(d=>{downloads=d||null}).catch(()=>{})}}catch(e){}
+})();
+</script>
+
+</body>
+</html>
